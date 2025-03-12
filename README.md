@@ -1,1 +1,1 @@
-# DesafioLogicaSuperTrunfo
+<p>Este programa implementa a lógica de comparação de cartas em três níveis de complexidade, com menus interativos, operadores lógicos, if-else, switch, e operadores ternários para a comparação de atributos no jogo Super Trunfo.</p>
