@@ -1,114 +1,101 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <string.h>
 
-// Definir uma estrutura para uma carta
+// Estrutura para representar uma carta do Super Trunfo
 typedef struct {
-    char nome[50];      // Nome da carta (exemplo: "Fusca", "Avião", "Cavalo")
-    int poder;          // Atributo para comparação (exemplo: poder do carro)
-    int velocidade;     // Outro atributo para comparação (exemplo: velocidade)
-    int tamanho;        // Outro atributo para comparação (exemplo: tamanho do carro)
+    char nome[50];
+    int poder;        // Atributo de poder
+    int velocidade;   // Atributo de velocidade
+    int habilidade;   // Atributo de habilidade
 } Carta;
 
-// Função para criar uma carta
-Carta criarCarta(char nome[], int poder, int velocidade, int tamanho) {
-    Carta carta;
-    strcpy(carta.nome, nome);
-    carta.poder = poder;
-    carta.velocidade = velocidade;
-    carta.tamanho = tamanho;
-    return carta;
+// Função para exibir o menu de opções
+void exibirMenu() {
+    printf("\nMenu de Comparação de Cartas - Super Trunfo\n");
+    printf("1. Comparar Poder\n");
+    printf("2. Comparar Velocidade\n");
+    printf("3. Comparar Habilidade\n");
+    printf("4. Sair\n");
+    printf("Escolha uma opção: ");
 }
 
-// Função para exibir uma carta
-void exibirCarta(Carta carta) {
-    printf("\nCarta: %s\n", carta.nome);
-    printf("Poder: %d\n", carta.poder);
-    printf("Velocidade: %d\n", carta.velocidade);
-    printf("Tamanho: %d\n", carta.tamanho);
+// Função para comparar duas cartas pelo atributo de poder
+void compararPoder(Carta carta1, Carta carta2) {
+    printf("\nComparando o atributo de Poder:\n");
+    printf("%s (Poder: %d) vs %s (Poder: %d)\n", carta1.nome, carta1.poder, carta2.nome, carta2.poder);
+    printf("%s venceu!\n", (carta1.poder > carta2.poder) ? carta1.nome : carta2.nome);
 }
 
-// Função para comparar duas cartas com base no atributo escolhido
-int compararCartas(Carta carta1, Carta carta2, int atributo) {
-    // Atributo 1: Poder, Atributo 2: Velocidade, Atributo 3: Tamanho
-    int valor1 = 0, valor2 = 0;
-    
-    switch (atributo) {
-        case 1:
-            valor1 = carta1.poder;
-            valor2 = carta2.poder;
-            break;
-        case 2:
-            valor1 = carta1.velocidade;
-            valor2 = carta2.velocidade;
-            break;
-        case 3:
-            valor1 = carta1.tamanho;
-            valor2 = carta2.tamanho;
-            break;
-        default:
-            printf("Atributo inválido!\n");
-            return 0;
-    }
-    
-    if (valor1 > valor2) {
-        return 1; // carta1 vence
-    } else if (valor1 < valor2) {
-        return 2; // carta2 vence
-    } else {
-        return 0; // empate
-    }
+// Função para comparar duas cartas pelo atributo de velocidade
+void compararVelocidade(Carta carta1, Carta carta2) {
+    printf("\nComparando o atributo de Velocidade:\n");
+    printf("%s (Velocidade: %d) vs %s (Velocidade: %d)\n", carta1.nome, carta1.velocidade, carta2.nome, carta2.velocidade);
+    printf("%s venceu!\n", (carta1.velocidade > carta2.velocidade) ? carta1.nome : carta2.nome);
 }
 
-// Função para escolher o atributo para a comparação
-int escolherAtributo() {
-    int atributo;
-    printf("\nEscolha o atributo para a comparação:\n");
-    printf("1. Poder\n");
-    printf("2. Velocidade\n");
-    printf("3. Tamanho\n");
-    printf("Digite o número do atributo: ");
-    scanf("%d", &atributo);
-    return atributo;
+// Função para comparar duas cartas pelo atributo de habilidade
+void compararHabilidade(Carta carta1, Carta carta2) {
+    printf("\nComparando o atributo de Habilidade:\n");
+    printf("%s (Habilidade: %d) vs %s (Habilidade: %d)\n", carta1.nome, carta1.habilidade, carta2.nome, carta2.habilidade);
+    printf("%s venceu!\n", (carta1.habilidade > carta2.habilidade) ? carta1.nome : carta2.nome);
 }
 
+// Função principal que controla o fluxo do programa
 int main() {
-    // Inicialização das cartas (Exemplo de cartas, pode ser expandido)
-    Carta carta1 = criarCarta("Fusca", 50, 120, 3);
-    Carta carta2 = criarCarta("Avião", 200, 900, 40);
-    Carta carta3 = criarCarta("Cavalo", 30, 60, 2);
-    
-    Carta deck[3] = {carta1, carta2, carta3};
-    
-    // Embaralhamento das cartas (apenas simulado com o índice)
-    srand(time(0));
-    int indiceJogador1 = rand() % 3;
-    int indiceJogador2;
+    Carta carta1, carta2;
+    int opcao;
+
+    // Entrada dos dados das cartas
+    printf("Digite o nome da primeira carta: ");
+    fgets(carta1.nome, sizeof(carta1.nome), stdin);
+    carta1.nome[strcspn(carta1.nome, "\n")] = 0;  // Remove o caractere '\n'
+
+    printf("Digite o poder da primeira carta: ");
+    scanf("%d", &carta1.poder);
+
+    printf("Digite a velocidade da primeira carta: ");
+    scanf("%d", &carta1.velocidade);
+
+    printf("Digite a habilidade da primeira carta: ");
+    scanf("%d", &carta1.habilidade);
+
+    getchar(); // Limpar o buffer do teclado após o scanf
+
+    printf("\nDigite o nome da segunda carta: ");
+    fgets(carta2.nome, sizeof(carta2.nome), stdin);
+    carta2.nome[strcspn(carta2.nome, "\n")] = 0;  // Remove o caractere '\n'
+
+    printf("Digite o poder da segunda carta: ");
+    scanf("%d", &carta2.poder);
+
+    printf("Digite a velocidade da segunda carta: ");
+    scanf("%d", &carta2.velocidade);
+
+    printf("Digite a habilidade da segunda carta: ");
+    scanf("%d", &carta2.habilidade);
+
+    // Menu interativo
     do {
-        indiceJogador2 = rand() % 3;
-    } while (indiceJogador1 == indiceJogador2);
-    
-    // Exibindo as cartas dos jogadores
-    printf("\nCartas dos jogadores:\n");
-    printf("Jogador 1: ");
-    exibirCarta(deck[indiceJogador1]);
-    printf("Jogador 2: ");
-    exibirCarta(deck[indiceJogador2]);
-    
-    // Escolhendo o atributo para a comparação
-    int atributo = escolherAtributo();
-    
-    // Comparando as cartas
-    int resultado = compararCartas(deck[indiceJogador1], deck[indiceJogador2], atributo);
-    
-    // Exibindo o resultado da comparação
-    if (resultado == 1) {
-        printf("\nJogador 1 venceu a rodada!\n");
-    } else if (resultado == 2) {
-        printf("\nJogador 2 venceu a rodada!\n");
-    } else {
-        printf("\nEmpate na rodada!\n");
-    }
-    
+        exibirMenu();
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                compararPoder(carta1, carta2);
+                break;
+            case 2:
+                compararVelocidade(carta1, carta2);
+                break;
+            case 3:
+                compararHabilidade(carta1, carta2);
+                break;
+            case 4:
+                printf("\nSaindo do programa...\n");
+                break;
+            default:
+                printf("\nOpção inválida. Tente novamente.\n");
+        }
+    } while (opcao != 4);
+
     return 0;
 }
